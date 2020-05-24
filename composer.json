@@ -1,0 +1,21 @@
+{
+    "name": "sezamin/dbmanager",
+    "description": "Db manager",
+    "type": "library",
+    "authors": [
+        {
+            "name": "shukurov",
+            "email": "shukurove@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Sezamin\\Db\\": "src/"
+        }
+    }
+}
