@@ -55,7 +55,6 @@ class Connection
         $userName = $this->config['USER'];
         $password = $this->config['PASSWORD'];
         $conString = "mysql:host={$serverName};dbname={$dbName}";
-        echo "\n{$conString}\n";
         try {
             $conn = new \PDO($conString, $userName, $password);
 
