@@ -47,10 +47,10 @@ class Query
         $iValues = [];
         $iBinds = [];
         foreach($values as $vKey =>$v){
-            $iValues[] = "{$vKey}=?";
+            $iValues[] = "`{$vKey}`=?";
             $iBinds[] = $v;
         }
-        $sql = "UPDATE {$table} SET " . implode(", ", $iValues) . " WHERE {$where}";
+        $sql = "UPDATE `{$table}` SET " . implode(", ", $iValues) . " WHERE {$where}";
         try {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($iBinds);
@@ -77,11 +77,11 @@ class Query
         $iValues = [];
         $iBinds = [];
         foreach($values as $vKey =>$v){
-            $iFields[] = $vKey;
+            $iFields[] = "`{$vKey}`";
             $iValues[] = '?';
             $iBinds[] = $v;
         }
-        $sql = "INSERT INTO {$table} (" . implode(", ", $iFields).") VALUES(".implode(", ", $iValues).")";
+        $sql = "INSERT INTO `{$table}` (" . implode(", ", $iFields).") VALUES(".implode(", ", $iValues).")";
 
         try {
             $stmt = $this->conn->prepare($sql);
@@ -107,7 +107,7 @@ class Query
             return false;
         }
 
-        $sql = "DELETE FROM {$table} WHERE {$where}";
+        $sql = "DELETE FROM `{$table}` WHERE {$where}";
         try {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($binds);
