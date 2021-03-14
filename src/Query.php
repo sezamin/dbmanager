@@ -128,4 +128,18 @@ class Query
         return false;
     }
 
+    /**
+     * @return \PDO
+     **/
+    function getConnection(){
+        return $this->conn;
+    }
+
+    /**
+     * @return integer
+     **/
+    function lastInsertId(){
+        return $this->conn->lastInsertId();
+    }
+
 }

@@ -7,7 +7,7 @@ namespace Sezamin\Db;
 class Connection
 {
     private $config = [
-        'HOST'=>'localhost',
+        'HOST'=>'127.0.0.1',
         'PORT'=>3306,
         'NAME'=>'test',
         'USER'=>'dev',
@@ -49,14 +49,16 @@ class Connection
     function connect(){
         $serverName = $this->config['HOST'];
         if($this->config['PORT'] !== 3306){
-            $serverName .= $serverName . ":" . $this->config['PORT'];
+            $serverName = $this->config['HOST'] . ":" . $this->config['PORT'];
         }
         $dbName = $this->config['NAME'];
         $userName = $this->config['USER'];
         $password = $this->config['PASSWORD'];
-
+        $conString = "mysql:host={$serverName};dbname={$dbName}";
+        echo "\n{$conString}\n";
         try {
-            $conn = new \PDO("mysql:host={$serverName};dbname={$dbName}", $userName, $password);
+            $conn = new \PDO($conString, $userName, $password);
+
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->_isConnected = true;
             $this->conn = $conn;
@@ -69,5 +71,12 @@ class Connection
      **/
     function query(){
         return new Query($this->conn);
+    }
+
+    /**
+     * @return \PDO
+     **/
+    function getConnection(){
+        return $this->conn;
     }
 }
